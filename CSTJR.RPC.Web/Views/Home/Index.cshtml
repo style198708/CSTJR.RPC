@@ -1,0 +1,63 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using CSTJR.RPC.Web.Models;
+
+<div class="container" style="max-width:1500px">
+    <h3>服务管理</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    服务名称
+                </th>
+                <th>
+                    服务文件
+                </th>
+                <th>
+                    文件路径
+                </th>
+                <th>
+                    状态
+                </th>
+                <th>
+                    操作
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (ServiceModel item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ServerName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ServerFile)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ServerPath)
+                    </td>
+                    <td style="min-width:100px">
+                        @Html.DisplayFor(modelItem => item.Statu)
+                    </td>
+                    <td style="min-width:500px">
+                        <!-- default按钮 -->
+                        <button type="button" class="btn-default   btn-success " onclick='ExecCommand("InstallWindowService","@item.ServerName")'>安装服务</button>
+                        <button type="button" class="btn-xs  btn-danger " onclick='ExecCommand("UnInstallWindowService","@item.ServerName")'>卸载服务</button>
+                        <button type="button" class="btn-xs  btn-success " onclick='ExecCommand("StartWindowsService","@item.ServerName")'>启动服务</button>
+                        <button type="button" class="btn-xs  btn-danger " onclick='ExecCommand("StopWindowsService","@item.ServerName")'>停止服务</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+<script type="text/javascript">
+    function ExecCommand(command, serveName) {
+        $.post("/Home/ExecCommand", { Command: command, ServeName: serveName }, function (result) {
+            alert(result);
+        });
+    }
+</script>

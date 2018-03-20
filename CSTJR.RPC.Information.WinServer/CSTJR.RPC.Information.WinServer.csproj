@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E416AE94-0E98-427B-B907-2C57AFFFD2E4}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>CSTJR.RPC.Information.WinServer</RootNamespace>
+    <AssemblyName>CSTJR.RPC.Information.WinServer</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DMSFrame">
+      <HintPath>..\Library\DMSFrame.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration.Install" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Thrift">
+      <HintPath>..\Library\Thrift.dll</HintPath>
+    </Reference>
+    <Reference Include="TYSystem.BaseFramework.Common">
+      <HintPath>..\Library\TYSystem.BaseFramework.Common.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="ProjectInstaller.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ProjectInstaller.Designer.cs">
+      <DependentUpon>ProjectInstaller.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Service.Designer.cs">
+      <DependentUpon>Service.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ProjectInstaller.resx">
+      <DependentUpon>ProjectInstaller.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CSTJR.RPC.Common\CSTJR.RPC.Common.csproj">
+      <Project>{99bc4321-08a2-4ca4-a9ce-46249d102e83}</Project>
+      <Name>CSTJR.RPC.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CSTJR.RPC.Information.Contracts\CSTJR.RPC.Information.Contracts.csproj">
+      <Project>{1d5be688-fcfa-46b7-8ace-e4274c9239c8}</Project>
+      <Name>CSTJR.RPC.Information.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CSTJR.RPC.Information\CSTJR.RPC.Information.csproj">
+      <Project>{05f4bb37-3314-45ba-9df0-e677c630ca83}</Project>
+      <Name>CSTJR.RPC.Information</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\projects\JINGLIHNET\branches\v1.1\CSTJREntity\CSTJR.Enum\CSTJR.Enum.csproj">
+      <Project>{2c17daeb-eef2-445b-af9d-4d8b1f055fd1}</Project>
+      <Name>CSTJR.Enum</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\projects\JINGLIHNET\branches\v1.1\CSTJREntity\CSTJR.Member.Entity\CSTJR.Member.Entity.csproj">
+      <Project>{873ecfba-4f25-4809-8435-fe0420c446be}</Project>
+      <Name>CSTJR.Member.Entity</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\projects\JINGLIHNET\branches\v1.1\CSTJREntity\CSTJR.Publish.Entity\CSTJR.Publish.Entity.csproj">
+      <Project>{6ea77ac3-11e3-4d1d-964a-8cc9772207e5}</Project>
+      <Name>CSTJR.Publish.Entity</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy /V "$(TargetDir)*.dll" "$(SolutionDir)Server\$(ProjectName)\"
+copy /V "$(TargetDir)*.config" "$(SolutionDir)Server\$(ProjectName)\"
+copy /V "$(TargetDir)*.exe" "$(SolutionDir)Server\$(ProjectName)\"</PostBuildEvent>
+  </PropertyGroup>
+</Project>

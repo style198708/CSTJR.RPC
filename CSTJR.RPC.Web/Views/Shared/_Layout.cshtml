@@ -1,0 +1,17 @@
+﻿@using System.Web.Optimization
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @*<link href="@Url.Content("~/Content/bootstrap.css")" rel="stylesheet">
+        <script src="@Url.Content("~/Scripts/bootstrap.js")"></script>*@
+    @Scripts.Render("~/bootstrap/js")
+    @Styles.Render("~/bootstrap/css")
+</head>
+<body>
+    <div>
+        @RenderBody()
+    </div>
+</body>
+</html>
